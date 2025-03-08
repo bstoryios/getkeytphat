@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +11,18 @@
     <div id="particles-js"></div>
 
     <!-- Thông báo chào mừng -->
-    <div class="notification" id="welcomeNoti">Chào mừng bạn đã tới website của mình ✧˖°</div>
+    <div id="welcomeNoti" class="notification">
+        Chào mừng bạn đã tới website của mình ✧˖°
+    </div>
 
     <!-- Thông báo lỗi -->
     <div class="notification error" id="errorNoti">Mã không đúng, vui lòng kiểm tra lại!</div>
 
     <!-- Thông báo đã copy key thành công -->
     <div id="copyNoti" class="copy-noti">Đã copy key thành công!</div>
+
+    <!-- Nút bật/tắt tuyết rơi -->
+    <button id="toggleSnow" onclick="toggleSnow()">Tắt tuyết rơi</button>
 
     <div class="profile">
         <img src="https://bstoryvn.github.io/iuuchang/public/tphat.jpg" alt="Profile Picture">

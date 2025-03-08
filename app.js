@@ -1,72 +1,45 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById("loading");
     loadingOverlay.style.display = "none"; // Ẩn overlay khi trang tải xong
+
+    const noti = document.getElementById("welcomeNoti");
+
+    // Hiển thị thông báo sau 0.5s và mờ dần sau 5s
+    setTimeout(() => {
+        noti.classList.add("show");
+
+        // Sau 5s, ẩn thông báo bằng cách mờ dần và di chuyển ra ngoài
+        setTimeout(() => {
+            noti.classList.add("hide");
+        }, 5000); // 5 giây sau khi thông báo hiển thị
+    }, 500); // Hiển thị thông báo sau 0.5 giây khi trang tải xong
 });
 
-// Hiệu ứng tuyết rơi sử dụng particles.js
-particlesJS('particles-js', {
-    particles: {
-        number: {
-            value: 100,  // Số lượng tuyết rơi
-            density: {
-                enable: true,
-                value_area: 800
-            }
-        },
-        color: {
-            value: "#ffffff"  // Màu tuyết
-        },
-        shape: {
-            type: "circle",  // Hình dạng tuyết
-            stroke: {
-                width: 0,
-                color: "#ffffff"
-            }
-        },
-        opacity: {
-            value: 0.5,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1
-            }
-        },
-        size: {
-            value: 3,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 2,
-                size_min: 0.1
-            }
-        },
-        line_linked: {
-            enable: false  // Không có liên kết giữa các hạt tuyết
-        },
-        move: {
-            enable: true,
-            speed: 1,
-            direction: "bottom",  // Hướng tuyết rơi xuống
-            random: true,
-            straight: false,
-            out_mode: "out",
-            bounce: false
-        }
-    },
-    interactivity: {
-        detect_on: "canvas",
-        events: {
-            onhover: {
-                enable: false
-            },
-            onclick: {
-                enable: false
-            }
-        }
-    },
-    retina_detect: true
-});
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.innerText = '❄';
+
+    const size = Math.random() * 8 + 8; // Giảm kích thước tuyết (8px - 16px)
+    const leftPos = Math.random() * window.innerWidth;
+    const duration = Math.random() * 2 + 2; // Giảm thời gian rơi (2s - 4s)
+
+    snowflake.style.left = `${leftPos}px`;
+    snowflake.style.fontSize = `${size}px`;
+    snowflake.style.animationDuration = `${duration}s`;
+
+    const randomX = (Math.random() * 2 - 1) * 30; // Giảm di chuyển ngang
+    snowflake.style.setProperty('--random-x', `${randomX}px`);
+
+    document.body.appendChild(snowflake);
+
+    setTimeout(() => {
+        snowflake.remove();
+    }, duration * 1000);
+}
+
+// Tạo tuyết mỗi 100ms
+setInterval(createSnowflake, 200);
 
 function checkCode() {
     const code = document.getElementById("codeInput").value;
@@ -74,7 +47,6 @@ function checkCode() {
     const key = "BstoryIOS-day-q4ca5xwzdnr396uo";
     const errorNoti = document.getElementById("errorNoti");
 
-    // Kiểm tra mã và hiển thị thông báo lỗi nếu không đúng
     if (code === correctCode) {
         document.getElementById("keyValue").innerText = key;
         const keyElement = document.getElementById("key");
@@ -98,9 +70,9 @@ function copyKey() {
 
     navigator.clipboard.writeText(keyText).then(() => {
         const noti = document.getElementById("copyNoti");
-        noti.style.display = 'block';  // Hiển thị thông báo copy thành công
+        noti.style.display = 'block';
         setTimeout(() => {
-            noti.style.display = 'none'; // Ẩn thông báo sau 2 giây
+            noti.style.display = 'none';
         }, 2000);
     });
 }
