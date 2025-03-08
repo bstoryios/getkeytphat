@@ -70,10 +70,21 @@ function copyKey() {
 
     navigator.clipboard.writeText(keyText).then(() => {
         const noti = document.getElementById("copyNoti");
-        noti.style.display = 'block';
+
+        // Hiển thị thông báo
+        noti.classList.remove("hide"); // Đảm bảo lớp "hide" được xóa trước khi hiển thị
+        noti.classList.add("show");
+
+        // Ẩn thông báo sau 2 giây với hiệu ứng tan biến
         setTimeout(() => {
-            noti.style.display = 'none';
-        }, 2000);
+            noti.classList.remove("show");
+            noti.classList.add("hide");
+
+            // Xóa lớp "hide" sau khi animation kết thúc
+            setTimeout(() => {
+                noti.classList.remove("hide");
+            }, 800); // Thời gian animation tan biến
+        }, 2000); // Thời gian hiển thị thông báo
     });
 }
 
