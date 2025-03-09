@@ -81,7 +81,7 @@ body {
 
 .container {
     background: rgba(255, 255, 255, 0.15);
-    padding: 30px;
+
     border-radius: 15px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -90,11 +90,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
     width: 320px;
-
+    padding: 30px;
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    scrollbar-width: none; 
 
 }
 .container::-webkit-scrollbar {
@@ -495,3 +495,16 @@ h2 {
 .error, .copy-noti, #welcomeNoti {
     overflow: hidden; /* Ngăn nội dung/hiệu ứng tràn ra ngoài */
   }
+/* Tắt zoom khi chạm vào input trên mobile */
+input {
+    touch-action: manipulation; /* Tối ưu cảm ứng */
+    font-size: 16px; /* Ngăn trình duyệt tự phóng to */
+}
+
+/* Trên mobile, tắt hiệu ứng phóng to khi focus */
+@media (max-width: 600px) {
+    input:focus {
+        font-size: 16px !important; /* Giữ nguyên kích thước chữ */
+        transform: none !important; /* Ngăn các hiệu ứng biến đổi */
+    }
+}
