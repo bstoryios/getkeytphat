@@ -14,17 +14,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000); // 5 giây sau khi thông báo hiển thị
     }, 500); // Hiển thị thông báo sau 0.5 giây khi trang tải xong
 });
+// Thêm vào file app.js (nếu chưa có)
+document.getElementById("codeInput").addEventListener("touchstart", function (e) {
+    e.stopPropagation(); // Ngăn sự kiện lan ra phần tử cha
+}, { passive: true }); // Sử dụng passive để tối ưu cuộn
+// Thay thế đoạn code scroll hiện tại bằng
 let isScrolling;
-
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', () => {
     window.clearTimeout(isScrolling);
-
-    // Tạm dừng các hiệu ứng khi cuộn
     document.body.classList.add('scrolling');
+    
+    // Tạm dừng particles (nếu có)
+    if (window.pJSDom && window.pJSDom[0]) {
+        window.pJSDom[0].pause();
+    }
 
-    isScrolling = setTimeout(function() {
-        // Tiếp tục các hiệu ứng sau khi ngừng cuộn
+    isScrolling = setTimeout(() => {
         document.body.classList.remove('scrolling');
+        if (window.pJSDom && window.pJSDom[0]) {
+            window.pJSDom[0].resume();
+        }
     }, 100);
 });
 function animate() {
