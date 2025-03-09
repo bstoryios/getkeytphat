@@ -39,7 +39,7 @@ function createSnowflake() {
 }
 
 // Tạo tuyết mỗi 100ms
-setInterval(createSnowflake, 200);
+setInterval(createSnowflake, 100);
 
 function checkCode() {
     const code = document.getElementById("codeInput").value;
@@ -64,27 +64,32 @@ function checkCode() {
     }
 }
 
+
 function copyKey() {
+    // ... giữ nguyên phần đầu ...
     const keyText = document.getElementById("keyValue").innerText;
     if (!keyText) return;
-
     navigator.clipboard.writeText(keyText).then(() => {
         const noti = document.getElementById("copyNoti");
+        
+        // Reset animation
+        noti.style.animation = 'none';
+        noti.offsetHeight; // Trigger reflow
+        noti.style.animation = null;
 
         // Hiển thị thông báo
-        noti.classList.remove("hide"); // Đảm bảo lớp "hide" được xóa trước khi hiển thị
+        noti.classList.remove("hide");
         noti.classList.add("show");
 
-        // Ẩn thông báo sau 2 giây với hiệu ứng tan biến
+        // Ẩn thông báo sau 2 giây
         setTimeout(() => {
             noti.classList.remove("show");
             noti.classList.add("hide");
-
-            // Xóa lớp "hide" sau khi animation kết thúc
+            
             setTimeout(() => {
                 noti.classList.remove("hide");
-            }, 800); // Thời gian animation tan biến
-        }, 2000); // Thời gian hiển thị thông báo
+            }, 400); // Thời gian animation
+        }, 2000);
     });
 }
 
