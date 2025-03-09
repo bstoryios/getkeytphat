@@ -163,7 +163,7 @@ button:active {
 
     /* Disable bokeh and snowflake on mobile */
     .bokeh, .snowflake {
-        display: none;
+
     }
 }
 
@@ -234,23 +234,43 @@ h2 {
     transform: translate(-50%, -50%) scale(1);
 }
 
-@keyframes explodeFadeOut {
+.error {
+    /* ... giữ nguyên các thuộc tính cũ ... */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Thêm easing mượt hơn */
+}
+
+/* Hiệu ứng biến mất mới */
+/* Trong file style.css */
+@keyframes errorDisappear {
     0% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
         opacity: 1;
+        filter: blur(0);
     }
-    50% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.8;
+    20% {
+        transform: translate(-50%, -50%) rotate(-5deg); /* Lắc trái */
+    }
+    40% {
+        transform: translate(-50%, -50%) rotate(5deg); /* Lắc phải */
+    }
+    60% {
+        transform: translate(-50%, -50%) rotate(-3deg); /* Lắc nhẹ */
+    }
+    80% {
+        transform: translate(-50%, -50%) rotate(2deg); 
+        opacity: 0.5;
+        filter: blur(4px); /* Bắt đầu mờ */
     }
     100% {
-        transform: translate(-50%, -50%) scale(0.5);
+        transform: translate(-50%, -50%) rotate(0deg); /* Trở lại vị trí ban đầu */
         opacity: 0;
+        filter: blur(10px); /* Tan biến hoàn toàn */
     }
 }
 
+
 .error.hide {
-    animation: explodeFadeOut 0.6s ease-out forwards;
+    animation: errorDisappear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 #key, #keyValue {
@@ -310,10 +330,43 @@ h2 {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.copy-noti.hide {
-    animation: dissolveToDust 0.8s ease-out forwards;
+.copy-noti {
+    /* ... giữ nguyên các thuộc tính cũ ... */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@keyframes copyDisappear {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9) translateY(-20px);
+        filter: blur(2px);
+    }
+}
+
+.copy-noti.hide {
+    animation: copyDisappear 0.4s ease-out forwards;
+}
+
+/* Tối ưu cho mobile */
+@media (max-width: 600px) {
+    .copy-noti {
+        width: 90%;
+        padding: 12px;
+        font-size: 14px;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    
+    @keyframes copyDisappear {
+        100% {
+            transform: translate(-50%, -80%) scale(0.8);
+            opacity: 0;
+        }
+    }
+}
 @keyframes dissolveToDust {
     0% {
         opacity: 1;
@@ -338,11 +391,6 @@ h2 {
     z-index: -1;
 }
 
-@keyframes bokehMove {
-    0% { transform: translateY(0px) scale(1); opacity: 0.5; }
-    50% { transform: translateY(-30px) scale(1.2); opacity: 0.8; }
-    100% { transform: translateY(0px) scale(1); opacity: 0.5; }
-}
 
 .bokeh {
     position: absolute;
@@ -424,3 +472,6 @@ h2 {
     opacity: 0;  /* Mờ dần */
     right: -100%;  /* Di chuyển ra ngoài màn hình (phải) */
 }
+.error, .copy-noti, #welcomeNoti {
+    overflow: hidden; /* Ngăn nội dung/hiệu ứng tràn ra ngoài */
+  }
