@@ -15,24 +15,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500); // Hiển thị thông báo sau 0.5 giây khi trang tải xong
 });
 // Thêm vào file app.js (nếu chưa có)
-document.getElementById("codeInput").addEventListener("touchstart", function (e) {
-    e.stopPropagation(); // Ngăn sự kiện lan ra phần tử cha
-}, { passive: true }); // Sử dụng passive để tối ưu cuộn
-// Thay thế đoạn code scroll hiện tại bằng
-let isScrolling;
-window.addEventListener('scroll', () => {
-    window.clearTimeout(isScrolling);
-    document.body.classList.add('scrolling');
-    
-    // Tạm dừng particles (nếu có)
-    if (window.pJSDom && window.pJSDom[0]) {
-        window.pJSDom[0].pause();
-    }
+// Thêm sự kiện focus vào input để ngăn scroll tự động
+document.getElementById("codeInput").addEventListener("focus", function () {
+    document.body.classList.add("input-focused");
+});
 
-    isScrolling = setTimeout(() => {
+document.getElementById("codeInput").addEventListener("blur", function () {
+    document.body.classList.remove("input-focused");
+});
+
+// Điều chỉnh sự kiện scroll
+let isScrolling;
+window.addEventListener('scroll', function () {
+    window.clearTimeout(isScrolling);
+    
+    // Tạm dừng hiệu ứng khi cuộn
+    document.body.classList.add('scrolling');
+
+    isScrolling = setTimeout(function () {
         document.body.classList.remove('scrolling');
-        if (window.pJSDom && window.pJSDom[0]) {
-            window.pJSDom[0].resume();
+        
+        // Chỉ tiếp tục hiệu ứng nếu không focus vào input
+        if (!document.body.classList.contains("input-focused")) {
+            if (window.pJSDom && window.pJSDom[0]) {
+                window.pJSDom[0].resume();
+            }
         }
     }, 100);
 });
