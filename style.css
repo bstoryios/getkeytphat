@@ -40,7 +40,7 @@ body {
 body {
     background: linear-gradient(135deg, #667eea, #764ba2, #ff758c, #ff7eb3);
     background-size: 300% 300%;
-    animation: gradientAnimation 10s ease infinite;
+    animation: gradientAnimation 20s ease infinite;
 }
 
 .profile {
@@ -412,16 +412,7 @@ h2 {
 }
 
 
-.bokeh {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    filter: blur(10px);
-    animation: bokehMove 3s infinite alternate ease-in-out;
-    will-change: transform, opacity;
-}
+
 
 .snowflake {
     position: absolute;
@@ -429,13 +420,13 @@ h2 {
     color: white;
     font-size: 1em;
     user-select: none;
+    will-change: transform; /* Tối ưu hiệu suất */
     animation: fall linear infinite;
-    will-change: transform;
 }
 
 @keyframes fall {
     to {
-        transform: translateY(100vh);
+        transform: translateY(100vh) translateZ(0); /* Sử dụng translateZ để kích hoạt GPU */
     }
 }
 #particles-js {
