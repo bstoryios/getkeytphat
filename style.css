@@ -26,6 +26,9 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 }
 
 @keyframes gradientAnimation {
@@ -85,6 +88,7 @@ body {
     width: 320px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+
 }
 
 .input-group {
