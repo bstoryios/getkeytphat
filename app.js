@@ -14,7 +14,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000); // 5 giây sau khi thông báo hiển thị
     }, 500); // Hiển thị thông báo sau 0.5 giây khi trang tải xong
 });
+let isScrolling;
 
+window.addEventListener('scroll', function() {
+    window.clearTimeout(isScrolling);
+
+    // Tạm dừng các hiệu ứng khi cuộn
+    document.body.classList.add('scrolling');
+
+    isScrolling = setTimeout(function() {
+        // Tiếp tục các hiệu ứng sau khi ngừng cuộn
+        document.body.classList.remove('scrolling');
+    }, 100);
+});
+function animate() {
+    // Các logic animation của bạn
+    requestAnimationFrame(animate);
+}
+
+animate();
 function createSnowflake() {
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
