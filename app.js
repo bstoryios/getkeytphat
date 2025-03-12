@@ -77,8 +77,8 @@ setInterval(createSnowflake, 100);
 
 function checkCode() {
     const code = document.getElementById("codeInput").value;
-    const correctCode = "REEDEMCODEXLK03W";
-    const key = "BstoryIOS-day-9tyo8nmaz3lx2swd";
+    const correctCode = "REEDEMCODEKDK3DK3";
+    const key = "BstoryIOS-day-y03btovzc751gwp9";
     const errorNoti = document.getElementById("errorNoti");
 
     if (code === correctCode) {
